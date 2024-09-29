@@ -1,0 +1,33 @@
+.cards-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.cards-my-card {
+  width: 200px;
+  margin: 10px;
+  text-align: center;
+}
+
+.cards-my-btn {
+  margin-top: 10px;
+}
+
+.charts-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.pie-chart-card {
+  width: 400px;
+  margin: 10px;
+}
+
+.line-chart-card {
+  width: 550px;
+  margin: 10px;
+}
