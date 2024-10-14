@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import { FaUserCircle, FaBell, FaChartLine, FaWallet, FaCogs } from 'react-icons/fa';
-import logo from '../../Assets/logo.png'; 
+import logo from '../../Assets/logo.png';
 
 const Navbar = () => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = (open) => {
+    setDropdownOpen(open);
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">
@@ -37,7 +43,19 @@ const Navbar = () => {
       </ul>
       <div className="navbar-actions">
         <FaBell className="navbar-icon" />
-        <FaUserCircle className="navbar-icon" />
+        <div 
+          className="user-icon" 
+          onMouseEnter={() => toggleDropdown(true)} 
+          onMouseLeave={() => toggleDropdown(false)}
+        >
+          <FaUserCircle className="navbar-icon" />
+          {dropdownOpen && (
+            <div className="dropdown-menu">
+              <Link to="/sign-in" className="dropdown-item">Sign In</Link>
+              <Link to="/sign-up" className="dropdown-item">Sign Up</Link>
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   );
