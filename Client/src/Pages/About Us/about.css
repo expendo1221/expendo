@@ -1,0 +1,143 @@
+/* General Page Styling */
+body {
+  background-color: #f0f0f0; /* Light grey background for the whole page */
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); 
+}
+
+.hero-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-image img { 
+  width: 100%;
+  height: 100%; 
+  object-fit: cover;
+  position: absolute;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  z-index: -2; 
+  filter: brightness(60%);  
+  transition: transform 0.3s ease; 
+}
+
+.hero-image:hover img {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.hero-content {
+  position: relative;
+  text-align: center;
+  color: white; 
+  z-index: 1;
+  max-width: 800px;
+  padding: 2rem;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #002B5B;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.hero-subtitle {
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); 
+}
+
+.cta-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.cta-button {
+  padding: 1rem 2.5rem;
+  font-size: 1.25rem;
+  background-color: #007BFF; 
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.cta-button:hover {
+  background-color: #0056b3; 
+  transform: translateY(-3px);
+}
+
+.cta-button.secondary {
+  background-color: transparent;
+  border: 2px solid #007BFF;
+  color: #007BFF;
+}
+
+.cta-button.secondary:hover {
+  background-color: #007BFF;
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* About Us Content Section */
+.about-container {
+  background-color: transparent;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 50px; /* Adds space between hero section and about section */
+}
+
+.about-us-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section-box {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  border: 1px solid #002b5b; /* Border color same as h2 color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-us-content h2 {
+  color: #002b5b;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.about-us-content p,
+.about-us-content ul {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #002b5b;
+}
+
+.about-us-content ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.about-us-content li {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
