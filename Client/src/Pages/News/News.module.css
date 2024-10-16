@@ -1,0 +1,45 @@
+/* General styles for the news section */
+.news-section {
+  max-width: 1200px; /* Contain the width */
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.full-width {
+  max-width: 100%; /* Full width for the specific section */
+  width: 100%;
+  padding: 2rem 0; /* Adjust padding */
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.news-card {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.news-image {
+  width: 100%;
+  height: auto;
+}
+
+.news-content {
+  padding: 1rem;
+}
+
+.header {
+  text-align: center;
+  padding: 2rem;
+}
+
+.section-title {
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  text-align: center;
+}

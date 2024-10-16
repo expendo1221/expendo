@@ -1,137 +1,209 @@
-/* General layout styles */
+/* General Styles */
 .content {
-  padding: 20px;
-  background-color: #f4f6f9;
-  min-height: 100vh;
+  padding: 50px;
+  background: linear-gradient(135deg, #f4f6f9, #e9ecef);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Hero Section */
-.hero {
-  background-color: #001529; /* Dark blue background */
-  color: #fff; /* White text */
-  padding: 100px 20px;
-  text-align: center;
-  margin-bottom: 50px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.portfolioSummary {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  margin-top: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.hero h2 {
-  font-size: 3em;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
-
-.hero p {
-  font-size: 1.2em;
-  margin-bottom: 30px;
-}
-
-.ctaButton {
-  background-color: #1890ff; /* Primary Ant Design button color */
-  border-color: #1890ff;
-  padding: 10px 40px;
-  font-size: 1.2em;
-  box-shadow: 0px 5px 15px rgba(24, 144, 255, 0.3);
-  transition: all 0.3s;
-}
-
-.ctaButton:hover {
-  background-color: #40a9ff;
-  border-color: #40a9ff;
-}
-
-/* Asset Cards */
-.portfolioSection {
-  padding: 50px 20px;
-  background-color: #fff;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
-}
-
-.assetCard {
-  text-align: center;
-  font-weight: bold;
-  padding: 20px;
-  background-color: #e8f5fe;
-  border-radius: 8px;
-  border: none;
-  transition: transform 0.2s;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.assetCard:hover {
-  transform: scale(1.05);
-}
-
-/* Chart Section */
-.chartSection {
-  padding: 50px 20px;
-  text-align: center;
-  background-color: #fff;
-  border-radius: 8px;
-  margin-top: 40px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
-
-.chartSection h2 {
-  font-size: 2.5em;
-  font-weight: 600;
-  margin-bottom: 30px;
-}
-
-/* Goals Section */
-.goalSection {
-  padding: 50px 20px;
-  background-color: #f4f6f9;
-  text-align: center;
-}
-
-.goalSection h2 {
-  font-size: 2em;
-  font-weight: 600;
-  margin-bottom: 30px;
-}
-
-.goalSection p {
-  font-size: 1.1em;
-  font-weight: 400;
-}
-
-/* Footer */
-.footer {
-  text-align: center;
-  background-color: #001529;
+.portfolioSummary .ant-card-head {
+  background: linear-gradient(135deg, #007bff, #0056b3);
   color: #fff;
+  border-radius: 10px 10px 0 0;
+}
+
+.title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.investmentsSection {
+  padding: 40px 0;
+}
+
+.ant-table-thead > tr > th {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  border: none;
+}
+
+.ant-table-tbody > tr > td {
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+  border: none;
+}
+
+.ant-table-bordered {
+  border: 1px solid #dfe1e5;
+  border-radius: 10px;
+}
+
+.ant-table-tbody > tr:hover {
+  background-color: #f1f5f9;
+  transition: background 0.3s ease;
+}
+
+.ant-table-column-sorter:hover {
+  color: #007bff;
+}
+
+.ant-table-pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Styling for the news section */
+.newsSection {
+  margin-top: 30px;
+}
+
+.newsCard {
+  background: #f7f9fc;
+  border-radius: 10px;
   padding: 20px;
-  margin-top: 40px;
-  border-top: 3px solid #40a9ff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
 }
 
-.footer a {
-  color: #40a9ff;
-  text-decoration: none;
+.newsCard:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
 }
 
-.footer a:hover {
+.newsCard .ant-card-head {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: #fff;
+  border-radius: 10px 10px 0 0;
+}
+
+.newsCard .ant-card-body {
+  padding: 20px;
+}
+
+.newsCard .ant-card-body a {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.newsCard .ant-card-body a:hover {
   text-decoration: underline;
 }
 
-/* Responsive Design */
+.newsCard h3 {
+  font-size: 18px;
+  color: #333;
+}
+
+.newsCard .ant-card-body p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Custom Styling for LineChart */
+.ant-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.ant-card-body {
+  padding: 0;
+}
+
+.ant-card-title {
+  font-size: 18px;
+  margin: 20px;
+  color: #007bff;
+}
+
+.lineChart {
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Specific table adjustments */
+.ant-table {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.ant-table-tbody > tr {
+  background-color: #ffffff;
+}
+
+.ant-table-tbody > tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.ant-table-column-sorter {
+  color: #007bff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.ant-table-column-sorter:hover {
+  color: #004085;
+}
+
+.ant-table-thead {
+  border-bottom: 2px solid #dfe1e5;
+}
+
+.ant-table-tbody > tr:hover {
+  background: #f4f6f9;
+  transition: background 0.3s ease;
+}
+
+.ant-table .ant-table-header {
+  border-bottom: 2px solid #e6e8eb;
+}
+
+.ant-table .ant-table-tbody > tr {
+  cursor: pointer;
+}
+
+/* Custom Table Styling */
+.ant-table-column-title {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Hover animation */
+.ant-card:hover {
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .hero h2 {
-    font-size: 2.5em;
+  .lineChart {
+    width: 100%;
+    height: 200px;
   }
 
-  .ctaButton {
-    font-size: 1em;
-    padding: 10px 30px;
+  .portfolioSummary {
+    padding: 20px;
+    margin-top: 20px;
   }
 
-  .chartSection h2 {
-    font-size: 2em;
-  }
-
-  .goalSection h2 {
-    font-size: 1.8em;
+  .ant-table {
+    font-size: 12px;
   }
 }

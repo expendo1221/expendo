@@ -1,3 +1,18 @@
+/* Global Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 /* Hero Section */
 .hero-section {
   position: relative;
@@ -182,11 +197,26 @@
 }
 
 .new-feature-image {
-  /* flex: 1; */
-  /* width: 00px; */
+  width: 50%; /* Adjust this for proper sizing */
   height: 500px;
   object-fit: cover;
   border-radius: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .new-feature {
+    flex-direction: column;
+  }
+
+  .new-feature.reverse {
+    flex-direction: column;
+  }
+
+  .new-feature-image {
+    width: 100%;
+    height: auto;
+    margin-top: 1rem;
+  }
 }
 
 /* Testimonials Section */

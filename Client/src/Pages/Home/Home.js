@@ -9,6 +9,28 @@ import img1 from '../../Assets/img1 (1).png';
 import img2 from '../../Assets/img1 (2).png';
 import img3 from '../../Assets/img1 (3).png';
 
+const features = [
+  {
+    title: 'Simple Money Tracker',
+    description: 'It takes seconds to record daily transactions. Put them into clear and visualized categories such as Expense: Food, Shopping or Income: Salary, Gift.',
+    image: img1,
+    alt: 'Simple Money Tracker',
+  },
+  {
+    title: 'Painless Budgeting',
+    description: 'One report to give a clear view on your spending patterns. Understand where your money comes and goes with easy-to-read graphs.',
+    image: img2,
+    alt: 'Painless Budgeting',
+  },
+  {
+    title: 'The Whole Picture in One Place',
+    description: 'One report to give a clear view on your spending patterns. Understand where your money comes and goes with easy-to-read graphs.',
+    image: img3,
+    alt: 'Spending Patterns',
+  },
+];
+
+
 const HomePage = () => {
   return (
     <div className="homepage">
@@ -60,28 +82,23 @@ const HomePage = () => {
 
       {/* New Features Section */}
       <section className="new-features-section">
-        <div className="new-feature">
+      {features.map((feature, index) => (
+        <div
+          key={index}
+          className={`new-feature ${index % 2 === 1 ? 'reverse' : ''}`}
+        >
           <div className="new-feature-content">
-            <h3>Simple Money Tracker</h3>
-            <p>It takes seconds to record daily transactions. Put them into clear and visualized categories such as Expense: Food, Shopping or Income: Salary, Gift.</p>
+            <h3>{feature.title}</h3>
+            <p>{feature.description}</p>
           </div>
-          <img src={img1} alt="Simple Money Tracker" className="new-feature-image" />
+          <img
+            src={feature.image}
+            alt={feature.alt}
+            className="new-feature-image"
+          />
         </div>
-        <div className="new-feature reverse">
-          <img src={img2} alt="Painless Budgeting" className="new-feature-image" />
-          <div className="new-feature-content">
-            <h3>Painless Budgeting</h3>
-            <p>One report to give a clear view on your spending patterns. Understand where your money comes and goes with easy-to-read graphs.</p>
-          </div>
-        </div>
-        <div className="new-feature">
-          <div className="new-feature-content">
-            <h3>The Whole Picture in One Place</h3>
-            <p>One report to give a clear view on your spending patterns. Understand where your money comes and goes with easy-to-read graphs.</p>
-          </div>
-          <img src={img3} alt="Spending Patterns" className="new-feature-image" />
-        </div>
-      </section>
+      ))}
+    </section>
 
       {/* Testimonials Section */}
       <section className="testimonials-section">

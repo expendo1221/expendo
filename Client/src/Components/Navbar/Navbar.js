@@ -30,13 +30,12 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/settings">
-            <FaCogs className="navbar-icon" /> Settings
+          <Link to="/news">
+            <FaCogs className="navbar-icon" /> News
           </Link>
         </li>
       </ul>
       <div className="navbar-actions">
-        <FaBell className="navbar-icon" />
         <FaUserCircle className="navbar-icon" />
       </div>
     </nav>

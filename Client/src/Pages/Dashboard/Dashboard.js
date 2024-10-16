@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import { Table, Button } from 'antd';
 import Cards from '../../Components/Cards/Cards';
 import './Dashboard.css'; // Import the CSS file for Dashboard
@@ -45,4 +45,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
