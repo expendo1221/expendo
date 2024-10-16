@@ -9,14 +9,15 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+/* Navbar Styles */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #002B5B;
+  background-color: #002B5B; /* Navbar background color */
   padding: 1rem 2rem;
-  color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #fff; /* Text color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   position: fixed;
   width: 100%;
   top: 0;
@@ -24,75 +25,108 @@ body {
 }
 
 .navbar-logo img.navbar-logo-img {
-  height: 40px; /* Adjust the height to fit your design */
-  width: auto;
+  height: 40px; /* Logo height */
+  width: auto; /* Maintain aspect ratio */
 }
 
+/* Navbar Links */
 .navbar-links {
   display: flex;
-  list-style: none;
+  list-style: none; /* Remove bullet points */
 }
 
 .navbar-links li {
-  margin-left: 2rem;
+  margin-left: 2rem; /* Space between links */
 }
 
 .navbar-links a {
-  text-decoration: none;
-  color: #fff;
-  font-size: 1.1rem;
-  position: relative;
-  transition: color 0.3s ease;
+  text-decoration: none; /* Remove underline */
+  color: #fff; /* Link color */
+  font-size: 1.1rem; /* Font size */
+  position: relative; /* Required for after pseudo-element */
+  transition: color 0.3s ease; /* Smooth color transition */
 }
 
 .navbar-links a:hover {
-  color: #00A4FF;
+  color: #00A4FF; /* Change color on hover */
 }
 
 .navbar-links a::after {
-  content: '';
+  content: ''; /* Pseudo-element for underline */
   display: block;
-  width: 0;
-  height: 2px;
-  background: #00A4FF;
-  transition: width 0.3s;
-  position: absolute;
-  bottom: -4px;
-  left: 0;
+  width: 0; /* Initial width */
+  height: 2px; /* Underline height */
+  background: #00A4FF; /* Underline color */
+  transition: width 0.3s; /* Smooth transition */
+  position: absolute; /* Position relative to link */
+  bottom: -4px; /* Positioning below the link */
+  left: 0; /* Align to left */
 }
 
 .navbar-links a:hover::after {
-  width: 100%;
+  width: 100%; /* Full width on hover */
 }
 
+/* Navbar Icons */
 .navbar-icon {
-  font-size: 1.2rem;
-  margin-right: 0.5rem;
-  transition: color 0.3s ease;
+  font-size: 1.2rem; /* Icon size */
+  margin-right: 0.5rem; /* Space between icon and text */
+  transition: color 0.3s ease; /* Smooth color transition */
 }
 
 .navbar-icon:hover {
-  color: #00A4FF;
+  color: #00A4FF; /* Change icon color on hover */
 }
 
+/* Navbar Actions */
 .navbar-actions {
   display: flex;
-  align-items: center;
+  align-items: center; /* Center align icons */
 }
 
 .navbar-actions .navbar-icon {
-  margin-left: 1.5rem;
-  cursor: pointer;
+  margin-left: 1.5rem; /* Space between action icons */
+  cursor: pointer; /* Change cursor to pointer */
+}
+
+/* Dropdown Menu Styles */
+.user-icon {
+  position: relative; /* Position for dropdown */
+}
+
+.dropdown-menu {
+  position: absolute; /* Position dropdown below icon */
+  right: 0; /* Align to the right */
+  background-color: white; /* Dropdown background color */
+  border: 1px solid #ccc; /* Dropdown border */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for dropdown */
+  z-index: 10; /* Ensure dropdown is on top */
+  display: block; /* Always display when opened */
+  white-space: nowrap; /* Prevent wrapping of text */
+}
+
+.dropdown-item {
+  padding: 10px 20px; /* Padding for dropdown items */
+  color: #002B5B; /* Item color */
+  text-decoration: none; /* Remove underline */
+  display: block; /* Block display */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+.dropdown-item:hover {
+  background-color: #002B5B; /* Background color on hover */
+  color: white; /* Text color on hover */
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .navbar-links {
-    display: none;
+    display: none; /* Hide links on smaller screens */
   }
 
   .navbar-actions {
-    flex: 1;
-    justify-content: flex-end;
+    flex: 1; /* Allow actions to take available space */
+    justify-content: flex-end; /* Align actions to the right */
   }
 }
