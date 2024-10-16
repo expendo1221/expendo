@@ -1,22 +1,41 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import styles from './Signin.module.css';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here (e.g., authentication)
-    console.log('Email:', email);
-    console.log('Password:', password);
+
+    try {
+      // Updated to target port 5000 for backend
+      const response = await axios.post('http://localhost:5000/api/auth/signin', { email, password });
+      const { token } = response.data;
+
+      // Save token to localStorage
+      localStorage.setItem('auth-token', token);
+      console.log('Sign-in successful', token);
+
+      // Redirect to the dashboard
+      navigate('/dashboard');
+    } catch (err) {
+      console.error('Error during sign-in', err);
+      setError('Invalid credentials. Please try again.');
+    }
   };
 
   return (
     <div className={styles['signin-container']}>
       <div className={styles['signin-card']}>
         <h2 className={styles['signin-title']}>Sign In</h2>
+
+        {error && <p className={styles['error-message']}>{error}</p>}
+
         <form onSubmit={handleSubmit} className={styles['signin-form']}>
           <div className={styles['signin-input-group']}>
             <label htmlFor="email">Email</label>
@@ -29,6 +48,7 @@ const SignIn = () => {
               placeholder="Enter your email"
             />
           </div>
+
           <div className={styles['signin-input-group']}>
             <label htmlFor="password">Password</label>
             <input
@@ -40,8 +60,10 @@ const SignIn = () => {
               placeholder="Enter your password"
             />
           </div>
+
           <button type="submit" className={styles['signin-btn']}>Sign In</button>
         </form>
+
         <div className={styles['signin-footer']}>
           <p>Don't have an account? <Link to="/signup" className={styles['signin-link']}>Sign Up</Link></p>
           <p><Link to="/forgot-password" className={styles['signin-link']}>Forgot Password?</Link></p>

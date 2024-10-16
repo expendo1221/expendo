@@ -49,6 +49,7 @@ const Navbar = () => {
             <div className="navbar-dropdown">
               <ul>
                 <li><Link to="/Signin">Sign in</Link></li>
+                <li><Link to="/Signup">Sign up</Link></li>
                 <li><Link to="/logout">Logout</Link></li>
               </ul>
             </div>

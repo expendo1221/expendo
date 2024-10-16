@@ -1,21 +1,22 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import './App.css';
+import News from './Pages/News/News';
 import Layout from './Components/Layout/Layout';
 import Home from './Pages/Home/Home';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import Portfolio from './Pages/Portfolio/Portfolio';
 import About from './Pages/About us/about';
 import SignIn from './Pages/Sign in/Signin';
-import News from './Pages/News/News';
-
-import './App.css';
+import SignUp from './Pages/Sign up/Signup'; {/* Add SignUp import */}
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        {/* Sign In page without Layout (no Navbar, no Footer) */}
+        {/* Sign In and Sign Up pages without Layout (no Navbar, no Footer) */}
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} /> {/* Add SignUp route */}
 
         {/* Main layout (with Navbar and Footer) */}
         <Route element={<Layout />}>

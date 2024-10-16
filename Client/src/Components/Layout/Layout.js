@@ -7,20 +7,20 @@ import './Layout.css';
 function Layout() {
   const location = useLocation();
 
-  // Check if the current page is /signin or any other pages you want to exclude the navbar and footer from
-  const isSignInPage = location.pathname === '/signin';
+  // Check if the current page is /signin or /signup
+  const isAuthPage = location.pathname === '/signin' || location.pathname === '/signup';
 
   return (
     <div className="layout">
-      {/* Only render Navbar if it's not the SignIn page */}
-      {!isSignInPage && <Navbar />}
+      {/* Only render Navbar if it's not the SignIn or SignUp page */}
+      {!isAuthPage && <Navbar />}
 
       <div className="content">
         <Outlet /> {/* This renders the matched child routes */}
       </div>
 
-      {/* Only render Footer if it's not the SignIn page */}
-      {!isSignInPage && <Footer />}
+      {/* Only render Footer if it's not the SignIn or SignUp page */}
+      {!isAuthPage && <Footer />}
     </div>
   );
 }
