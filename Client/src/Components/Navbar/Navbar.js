@@ -7,8 +7,8 @@ import logo from '../../Assets/logo.png';
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const toggleDropdown = (open) => {
-    setDropdownOpen(open);
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen); // Toggle the dropdown visibility
   };
 
   return (
@@ -42,8 +42,18 @@ const Navbar = () => {
         </li>
       </ul>
       <div className="navbar-actions">
-        <FaBell className="navbar-icon" />
-        <FaUserCircle className="navbar-icon" />
+        <div className="navbar-user" onClick={toggleDropdown}>
+          <FaUserCircle className="navbar-icon" />
+          {/* Dropdown Menu */}
+          {dropdownOpen && (
+            <div className="navbar-dropdown">
+              <ul>
+                <li><Link to="/Signin">Sign in</Link></li>
+                <li><Link to="/logout">Logout</Link></li>
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   );

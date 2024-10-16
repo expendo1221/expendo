@@ -1,5 +1,5 @@
 import React from 'react';
-import './News.module.css';
+import styles from './News.module.css';  // Use CSS module import
 
 const newsData = {
   topNews: [
@@ -42,9 +42,9 @@ const newsData = {
 
 const NewsCard = ({ title, content, image }) => {
   return (
-    <div className="news-card">
-      <img src={image} alt={title} className="news-image" />
-      <div className="news-content">
+    <div className={styles['news-card']}>
+      <img src={image} alt={title} className={styles['news-image']} />
+      <div className={styles['news-content']}>
         <h2>{title}</h2>
         <p>{content}</p>
       </div>
@@ -54,22 +54,20 @@ const NewsCard = ({ title, content, image }) => {
 
 // Function to determine if a section should be full-width
 const shouldBeFullWidth = (sectionTitle) => {
-  // You can make conditions based on the title or section type
-  return sectionTitle === 'Top News'; // Adjust this condition for other sections if needed
+  return sectionTitle === 'Top News';
 };
 
 const NewsSection = ({ sectionTitle, newsItems }) => {
-  // Apply a full-width class if it should be full-width
   const sectionClass = shouldBeFullWidth(sectionTitle)
-    ? 'news-section full-width'
-    : 'news-section';
+    ? `${styles['news-section']} ${styles['full-width']}`
+    : styles['news-section'];
 
   return (
     <div className={sectionClass}>
-      <h2 className="section-title">{sectionTitle}</h2>
-      <div className="news-grid">
+      <h2 className={styles['section-title']}>{sectionTitle}</h2>
+      <div className={styles['news-grid']}>
         {newsItems.map((newsItem, index) => (
-          <NewsCard 
+          <NewsCard
             key={index}
             title={newsItem.title}
             content={newsItem.content}
@@ -83,8 +81,8 @@ const NewsSection = ({ sectionTitle, newsItems }) => {
 
 function App() {
   return (
-    <div className="app">
-      <header className="header">
+    <div className={styles['app']}>
+      <header className={styles['header']}>
         <h1>Finance & Stock News</h1>
         <p>Your trusted source for stock market updates and financial insights.</p>
       </header>

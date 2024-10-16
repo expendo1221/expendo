@@ -1,20 +1,28 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { useLocation, Outlet } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
-import './Layout.css'; 
+import './Layout.css';
 
 function Layout() {
+  const location = useLocation();
+
+  // Check if the current page is /signin or any other pages you want to exclude the navbar and footer from
+  const isSignInPage = location.pathname === '/signin';
+
   return (
     <div className="layout">
-      <Navbar />
+      {/* Only render Navbar if it's not the SignIn page */}
+      {!isSignInPage && <Navbar />}
+
       <div className="content">
-        <Outlet />
+        <Outlet /> {/* This renders the matched child routes */}
       </div>
-      <Footer />
+
+      {/* Only render Footer if it's not the SignIn page */}
+      {!isSignInPage && <Footer />}
     </div>
   );
 }
 
 export default Layout;
-

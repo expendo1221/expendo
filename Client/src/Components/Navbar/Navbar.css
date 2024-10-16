@@ -14,10 +14,10 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #002B5B; /* Navbar background color */
+  background-color: #002B5B;
   padding: 1rem 2rem;
-  color: #fff; /* Text color */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: fixed;
   width: 100%;
   top: 0;
@@ -25,108 +25,120 @@ body {
 }
 
 .navbar-logo img.navbar-logo-img {
-  height: 40px; /* Logo height */
-  width: auto; /* Maintain aspect ratio */
+  height: 40px;
+  width: auto;
 }
 
-/* Navbar Links */
 .navbar-links {
   display: flex;
-  list-style: none; /* Remove bullet points */
+  list-style: none;
 }
 
 .navbar-links li {
-  margin-left: 2rem; /* Space between links */
+  margin-left: 2rem;
 }
 
 .navbar-links a {
-  text-decoration: none; /* Remove underline */
-  color: #fff; /* Link color */
-  font-size: 1.1rem; /* Font size */
-  position: relative; /* Required for after pseudo-element */
-  transition: color 0.3s ease; /* Smooth color transition */
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.1rem;
+  position: relative;
+  transition: color 0.3s ease;
 }
 
 .navbar-links a:hover {
-  color: #00A4FF; /* Change color on hover */
+  color: #00A4FF;
 }
 
 .navbar-links a::after {
-  content: ''; /* Pseudo-element for underline */
+  content: '';
   display: block;
-  width: 0; /* Initial width */
-  height: 2px; /* Underline height */
-  background: #00A4FF; /* Underline color */
-  transition: width 0.3s; /* Smooth transition */
-  position: absolute; /* Position relative to link */
-  bottom: -4px; /* Positioning below the link */
-  left: 0; /* Align to left */
+  width: 0;
+  height: 2px;
+  background: #00A4FF;
+  transition: width 0.3s;
+  position: absolute;
+  bottom: -4px;
+  left: 0;
 }
 
 .navbar-links a:hover::after {
-  width: 100%; /* Full width on hover */
+  width: 100%;
 }
 
-/* Navbar Icons */
 .navbar-icon {
-  font-size: 1.2rem; /* Icon size */
-  margin-right: 0.5rem; /* Space between icon and text */
-  transition: color 0.3s ease; /* Smooth color transition */
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+  transition: color 0.3s ease;
 }
 
 .navbar-icon:hover {
-  color: #00A4FF; /* Change icon color on hover */
+  color: #00A4FF;
 }
 
-/* Navbar Actions */
 .navbar-actions {
   display: flex;
-  align-items: center; /* Center align icons */
+  align-items: center;
 }
 
 .navbar-actions .navbar-icon {
-  margin-left: 1.5rem; /* Space between action icons */
-  cursor: pointer; /* Change cursor to pointer */
+  margin-left: 1.5rem;
+  cursor: pointer;
+}
+
+.navbar-user {
+  position: relative;
+  cursor: pointer;
 }
 
 /* Dropdown Menu Styles */
-.user-icon {
-  position: relative; /* Position for dropdown */
+.navbar-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  min-width: 150px;
 }
 
-.dropdown-menu {
-  position: absolute; /* Position dropdown below icon */
-  right: 0; /* Align to the right */
-  background-color: white; /* Dropdown background color */
-  border: 1px solid #ccc; /* Dropdown border */
-  border-radius: 5px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for dropdown */
-  z-index: 10; /* Ensure dropdown is on top */
-  display: block; /* Always display when opened */
-  white-space: nowrap; /* Prevent wrapping of text */
+.navbar-dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.dropdown-item {
-  padding: 10px 20px; /* Padding for dropdown items */
-  color: #002B5B; /* Item color */
-  text-decoration: none; /* Remove underline */
-  display: block; /* Block display */
-  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+.navbar-dropdown li {
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
 }
 
-.dropdown-item:hover {
-  background-color: #002B5B; /* Background color on hover */
-  color: white; /* Text color on hover */
+.navbar-dropdown li:last-child {
+  border-bottom: none;
+}
+
+.navbar-dropdown li a {
+  color: #002B5B;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar-dropdown li a:hover {
+  background-color: #002B5B;
+  color: #fff;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .navbar-links {
-    display: none; /* Hide links on smaller screens */
+    display: none;
   }
 
   .navbar-actions {
-    flex: 1; /* Allow actions to take available space */
-    justify-content: flex-end; /* Align actions to the right */
+    flex: 1;
+    justify-content: flex-end;
   }
 }
