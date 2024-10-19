@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
-import { FaUserCircle, FaBell, FaChartLine, FaWallet, FaCogs } from 'react-icons/fa';
+import { FaUserCircle, FaChartLine, FaWallet, FaEnvelope } from 'react-icons/fa';  // Changed icon here
 import logo from '../../Assets/logo.png';
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // State to track user authentication
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if the user is authenticated by checking for a token in localStorage
+    const token = localStorage.getItem('auth-token'); // Update to 'auth-token'
+    setIsAuthenticated(!!token); // Set isAuthenticated to true if token exists
+  }, []);
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen); // Toggle the dropdown visibility
+  };
+
+  const handleLogout = () => {
+    // Remove token from localStorage and update isAuthenticated
+    localStorage.removeItem('auth-token'); // Update to 'auth-token'
+    setIsAuthenticated(false);
+
+    // Redirect to Signin page after logout
+    navigate('/signin');
   };
 
   return (
@@ -37,7 +54,12 @@ const Navbar = () => {
         </li>
         <li>
           <Link to="/news">
-            <FaCogs className="navbar-icon" /> News
+            <FaWallet className="navbar-icon" /> News
+          </Link>
+        </li>
+        <li>
+          <Link to="/contactus">
+            <FaEnvelope className="navbar-icon" /> Contact Us  {/* Changed the icon to FaEnvelope */}
           </Link>
         </li>
       </ul>
@@ -48,9 +70,14 @@ const Navbar = () => {
           {dropdownOpen && (
             <div className="navbar-dropdown">
               <ul>
-                <li><Link to="/Signin">Sign in</Link></li>
-                <li><Link to="/Signup">Sign up</Link></li>
-                <li><Link to="/logout">Logout</Link></li>
+                {!isAuthenticated ? (
+                  <>
+                    <li><Link to="/signin">Sign in</Link></li>
+                    <li><Link to="/signup">Sign up</Link></li>
+                  </>
+                ) : (
+                  <li onClick={handleLogout}>Logout</li>
+                )}
               </ul>
             </div>
           )}

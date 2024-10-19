@@ -1,44 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './News.module.css';  // Use CSS module import
 
-const newsData = {
-  topNews: [
-    {
-      title: 'Tech Giants See Major Gains in Stock Market',
-      content: 'Apple, Google, and Microsoft stocks surged by 10% today...',
-      image: 'https://via.placeholder.com/400x250.png?text=Tech+Stock+Surge',
-    },
-    {
-      title: 'Omar Abdullah to take oath as first CM of Jammu and Kashmir UT',
-      content: 'Jammu and Kashmir UT gets its first CM today...',
-      image: 'https://via.placeholder.com/400x250.png?text=Top+News',
-    },
-    {
-      title: 'Global stocks see gains as U.S. earnings season kicks off',
-      content: 'Global markets are on the rise as U.S. earnings reports come in...',
-      image: 'https://via.placeholder.com/400x250.png?text=Global+Stocks',
-    },
-  ],
-  economyNews: [
-    {
-      title: 'Retail inflation rises to nine-month high of 5.5%',
-      content: 'Dimming hopes for a rate cut...',
-      image: 'https://via.placeholder.com/400x250.png?text=Inflation+Rises',
-    },
-    {
-      title: 'Will inflation hold back RBI from cutting interest rates?',
-      content: 'The RBI may face challenges in the next monetary policy...',
-      image: 'https://via.placeholder.com/400x250.png?text=RBI+Policy',
-    },
-  ],
-  worldNews: [
-    {
-      title: 'China stock market drops amid economic concerns',
-      content: 'The Chinese stock market faces a rough patch...',
-      image: 'https://via.placeholder.com/400x250.png?text=China+Market',
-    },
-  ],
-};
+const API_KEY = '08d9d78574844dc4b614f9dd5b6c1063'; // Your API key
+const NEWS_API_URL = 'https://newsapi.org/v2/top-headlines';
 
 const NewsCard = ({ title, content, image }) => {
   return (
@@ -70,8 +34,8 @@ const NewsSection = ({ sectionTitle, newsItems }) => {
           <NewsCard
             key={index}
             title={newsItem.title}
-            content={newsItem.content}
-            image={newsItem.image}
+            content={newsItem.description}
+            image={newsItem.urlToImage || 'https://via.placeholder.com/400x250.png'} // Fallback image if not available
           />
         ))}
       </div>
@@ -80,6 +44,38 @@ const NewsSection = ({ sectionTitle, newsItems }) => {
 };
 
 function App() {
+  const [topNews, setTopNews] = useState([]);
+  const [economyNews, setEconomyNews] = useState([]);
+  const [worldNews, setWorldNews] = useState([]);
+
+  useEffect(() => {
+    // Fetch Top News
+    const fetchTopNews = async () => {
+      const response = await fetch(`${NEWS_API_URL}?category=general&apiKey=${API_KEY}`);
+      const data = await response.json();
+      setTopNews(data.articles);
+    };
+
+    // Fetch Economy News
+    const fetchEconomyNews = async () => {
+      const response = await fetch(`${NEWS_API_URL}?category=business&apiKey=${API_KEY}`);
+      const data = await response.json();
+      setEconomyNews(data.articles);
+    };
+
+    // Fetch World News
+    const fetchWorldNews = async () => {
+      const response = await fetch(`${NEWS_API_URL}?category=general&apiKey=${API_KEY}&language=en`);
+      const data = await response.json();
+      setWorldNews(data.articles);
+    };
+
+    // Call fetch functions
+    fetchTopNews();
+    fetchEconomyNews();
+    fetchWorldNews();
+  }, []);
+
   return (
     <div className={styles['app']}>
       <header className={styles['header']}>
@@ -87,9 +83,9 @@ function App() {
         <p>Your trusted source for stock market updates and financial insights.</p>
       </header>
       <main>
-        <NewsSection sectionTitle="Top News" newsItems={newsData.topNews} />
-        <NewsSection sectionTitle="Economy News" newsItems={newsData.economyNews} />
-        <NewsSection sectionTitle="World News" newsItems={newsData.worldNews} />
+        <NewsSection sectionTitle="Top News" newsItems={topNews} />
+        <NewsSection sectionTitle="Economy News" newsItems={economyNews} />
+        <NewsSection sectionTitle="World News" newsItems={worldNews} />
       </main>
     </div>
   );

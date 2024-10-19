@@ -18,7 +18,7 @@ const Footer = () => {
           <li><Link to="/about">About Us</Link></li>
           <li><Link to="/dashboard">Dashboard</Link></li>
           <li><Link to="/portfolio">Portfolio</Link></li>
-          <li><Link to="/settings">Settings</Link></li>
+          <li><Link to="/news">News</Link></li>
         </ul>
         <div className="footer-social">
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">

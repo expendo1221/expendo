@@ -11,6 +11,7 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(''); // Reset error message
 
     try {
       const response = await axios.post('http://localhost:5000/api/signin', { 
@@ -18,8 +19,12 @@ const SignIn = () => {
         password 
       });
       const { token } = response.data;
+      
+      // Store the token in localStorage
       localStorage.setItem('auth-token', token);
-      navigate('/dashboard');  // Redirect to the dashboard
+      
+      // Redirect to the dashboard
+      navigate('/dashboard');  
     } catch (err) {
       setError('Invalid credentials. Please try again.');
     }

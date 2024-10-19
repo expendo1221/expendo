@@ -1,47 +1,29 @@
 import React, { useState } from "react";
-import { AutoComplete, Input, Button } from "antd";
-import axios from "axios";
+import { Input, Button } from "antd";
+import styles from "./SearchBar.module.css";
 
-const SearchBar = ({ onAddStock }) => {
-  const [options, setOptions] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
+const SearchBar = ({ onSearchStock }) => {
+  const [stockSymbol, setStockSymbol] = useState("");
 
-  const handleSearch = async (value) => {
-    setSearchValue(value);
-    if (value) {
-      const response = await axios.get(`https://finnhub.io/api/v1/search`, {
-        params: {
-          q: value,
-          token: "cs6ee6hr01qv8tfqk820cs6ee6hr01qv8tfqk82g", // Replace with your Finnhub API key
-        },
-      });
-      setOptions(
-        response.data.result.map((stock) => ({
-          value: stock.symbol,
-          label: `${stock.symbol} - ${stock.description}`,
-        }))
-      );
-    } else {
-      setOptions([]);
+  const handleSearch = () => {
+    if (stockSymbol) {
+      onSearchStock(stockSymbol);
+      setStockSymbol("");
     }
   };
 
-  const handleSelect = (value) => {
-    onAddStock(value);
-    setSearchValue("");
-    setOptions([]);
-  };
-
   return (
-    <AutoComplete
-      options={options}
-      style={{ width: 300 }}
-      onSearch={handleSearch}
-      onSelect={handleSelect}
-      value={searchValue}
-    >
-      <Input.Search placeholder="Search for stocks" enterButton />
-    </AutoComplete>
+    <div className={styles.searchBar}>
+      <Input
+        placeholder="Enter Stock Symbol (e.g., AAPL)"
+        value={stockSymbol}
+        onChange={(e) => setStockSymbol(e.target.value.toUpperCase())}
+        style={{ width: 200 }}
+      />
+      <Button onClick={handleSearch} type="primary" style={{ marginLeft: 10 }}>
+        Search
+      </Button>
+    </div>
   );
 };
 
