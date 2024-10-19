@@ -1,42 +1,76 @@
-import React, { useState } from 'react';
-import styles from './Cards.module.css'; 
-import { Card, Row, Button, Modal, Input, Form, Select } from "antd";
+ import React, { useState, useEffect } from 'react';
+import styles from './Cards.module.css';
+import { Card, Row, Button, Modal, Input, Form, Select, message } from "antd";
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
+import axios from 'axios';
 
 const { Option } = Select;
 
-export default function Cards({ incomeEntries, expenseEntries, onAddIncome, onAddExpense }) {
+export default function Cards({ onAddIncome, onAddExpense }) {
   const [isIncomeModalVisible, setIncomeModalVisible] = useState(false);
   const [isExpenseModalVisible, setExpenseModalVisible] = useState(false);
   const [expenseCategory, setExpenseCategory] = useState('');
 
+  const [incomeEntries, setIncomeEntries] = useState([]);
+  const [expenseEntries, setExpenseEntries] = useState([]);
+
+  // Fetch Income and Expense data from backend on component mount
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const incomeResponse = await axios.get('http://localhost:5000/api/incomes');
+        const expenseResponse = await axios.get('http://localhost:5000/api/expenses');
+        setIncomeEntries(incomeResponse.data);
+        setExpenseEntries(expenseResponse.data);
+      } catch (error) {
+        message.error('Failed to load data');
+      }
+    }
+
+    fetchData();
+  }, []);
+
   const showIncomeModal = () => setIncomeModalVisible(true);
   const showExpenseModal = () => setExpenseModalVisible(true);
 
-  const handleIncomeModalOk = (values) => {
+  const handleIncomeModalOk = async (values) => {
     const { amount, source } = values;
     const newIncome = {
-      key: Date.now(),
       source,
       amount: parseFloat(amount),
       date: new Date().toLocaleString(),
     };
-    onAddIncome(newIncome);
-    setIncomeModalVisible(false);
+    
+    try {
+      const response = await axios.post('http://localhost:5000/api/incomes', newIncome);  // Post new income to backend
+      setIncomeEntries([...incomeEntries, response.data]);
+      onAddIncome(response.data);
+      setIncomeModalVisible(false);
+      message.success('Income added successfully');
+    } catch (error) {
+      message.error('Failed to add income');
+    }
   };
 
-  const handleExpenseModalOk = (values) => {
-    const { amount, category } = values;
+  const handleExpenseModalOk = async (values) => {
+    const { amount, source, category } = values;
     const newExpense = {
-      key: Date.now(),
-      source: values.source,
+      source,
       category,
       amount: parseFloat(amount),
       date: new Date().toLocaleString(),
     };
-    onAddExpense(newExpense);
-    setExpenseModalVisible(false);
+    
+    try {
+      const response = await axios.post('http://localhost:5000/api/expenses', newExpense);  // Post new expense to backend
+      setExpenseEntries([...expenseEntries, response.data]);
+      onAddExpense(response.data);
+      setExpenseModalVisible(false);
+      message.success('Expense added successfully');
+    } catch (error) {
+      message.error('Failed to add expense');
+    }
   };
 
   const handleModalCancel = () => {
@@ -47,8 +81,7 @@ export default function Cards({ incomeEntries, expenseEntries, onAddIncome, onAd
   const totalIncome = incomeEntries.reduce((acc, entry) => acc + entry.amount, 0);
   const totalExpenses = expenseEntries.reduce((acc, entry) => acc + entry.amount, 0);
   const currentBalance = totalIncome - totalExpenses;
-
-  const savings = currentBalance > 0 ? currentBalance : 0; 
+  const savings = currentBalance > 0 ? currentBalance : 0;
 
   const pieData = [
     { name: 'Income', value: totalIncome },
@@ -63,28 +96,19 @@ export default function Cards({ incomeEntries, expenseEntries, onAddIncome, onAd
       .reduce((acc, entry) => acc + entry.amount, 0),
   }));
 
-  const chartData = incomeEntries.map((income, index) => ({
-    date: income.date,
-    income: income.amount,
-    expenses: expenseEntries[index]?.amount || 0,
-  }));
-
+  const chartData = incomeEntries.map((income) => {
+    const expense = expenseEntries.find(exp => exp.date === income.date);
+    return {
+      date: income.date,
+      income: income.amount,
+      expenses: expense ? expense.amount : 0,
+    };
+  });
 
   const COLORS = [
-    '#FF6384', 
-    '#36A2EB', 
-    '#FFCE56', 
-    '#4BC0C0', 
-    '#9966FF', 
-    '#FF9F40', 
-    '#FF5C8D', 
-    '#5C8DFF', 
-    '#FFA07A', 
-    '#FFD700', 
-    '#20B2AA', 
-    '#9370DB', 
-    '#FF4500',
-    '#ADFF2F', 
+    '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
+    '#FF9F40', '#FF5C8D', '#5C8DFF', '#FFA07A', '#FFD700',
+    '#20B2AA', '#9370DB', '#FF4500', '#ADFF2F',
   ];
 
   return (
@@ -116,11 +140,9 @@ export default function Cards({ incomeEntries, expenseEntries, onAddIncome, onAd
               outerRadius={80}
               fill="#8884d8"
             >
-              {
-                pieData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))
-              }
+              {pieData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
             </Pie>
             <Tooltip />
             <Legend />
@@ -138,11 +160,9 @@ export default function Cards({ incomeEntries, expenseEntries, onAddIncome, onAd
               outerRadius={80}
               fill="#8884d8"
             >
-              {
-                categoryData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))
-              }
+              {categoryData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
             </Pie>
             <Tooltip />
             <Legend />
@@ -155,12 +175,13 @@ export default function Cards({ incomeEntries, expenseEntries, onAddIncome, onAd
             <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
-            <Line type="monotone" dataKey="income" stroke="#82ca9d" />
-            <Line type="monotone" dataKey="expenses" stroke="#ff6384" />
+            <Line type="monotone" dataKey="income" stroke="#8884d8" activeDot={{ r: 8 }} />
+            <Line type="monotone" dataKey="expenses" stroke="#ff6f61" />
           </LineChart>
         </Card>
       </Row>
 
+      {/* Add Income Modal */}
       <Modal
         title="Add Income"
         visible={isIncomeModalVisible}
@@ -168,18 +189,21 @@ export default function Cards({ incomeEntries, expenseEntries, onAddIncome, onAd
         footer={null}
       >
         <Form onFinish={handleIncomeModalOk}>
-          <Form.Item name="source" rules={[{ required: true, message: 'Please input the source of income!' }]}>
-            <Input placeholder="Source of Income" />
+          <Form.Item label="Amount" name="amount" rules={[{ required: true }]}>
+            <Input type="number" />
           </Form.Item>
-          <Form.Item name="amount" rules={[{ required: true, message: 'Please input the amount!' }]}>
-            <Input placeholder="Amount" type="number" />
+          <Form.Item label="Source" name="source" rules={[{ required: true }]}>
+            <Input />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">Add Income</Button>
+            <Button type="primary" htmlType="submit">
+              Add Income
+            </Button>
           </Form.Item>
         </Form>
       </Modal>
 
+      {/* Add Expense Modal */}
       <Modal
         title="Add Expense"
         visible={isExpenseModalVisible}
@@ -187,31 +211,27 @@ export default function Cards({ incomeEntries, expenseEntries, onAddIncome, onAd
         footer={null}
       >
         <Form onFinish={handleExpenseModalOk}>
-          <Form.Item name="source" rules={[{ required: true, message: 'Please input the source of expense!' }]}>
-            <Input placeholder="Source of Expense" />
+          <Form.Item label="Amount" name="amount" rules={[{ required: true }]}>
+            <Input type="number" />
           </Form.Item>
-          <Form.Item name="category" rules={[{ required: true, message: 'Please select a category!' }]}>
-            <Select
-              placeholder="Select a category"
-              onChange={setExpenseCategory}
-              defaultValue={expenseCategory}
-            >
+          <Form.Item label="Source" name="source" rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item label="Category" name="category" rules={[{ required: true }]}>
+            <Select defaultValue={expenseCategory} onChange={setExpenseCategory}>
               <Option value="Food">Food</Option>
-              <Option value="Transportation">Transportation</Option>
-              <Option value="Utilities">Utilities</Option>
               <Option value="Entertainment">Entertainment</Option>
+              <Option value="Transport">Transport</Option>
               <Option value="Other">Other</Option>
             </Select>
           </Form.Item>
-          <Form.Item name="amount" rules={[{ required: true, message: 'Please input the amount!' }]}>
-            <Input placeholder="Amount" type="number" />
-          </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">Add Expense</Button>
+            <Button type="primary" htmlType="submit">
+              Add Expense
+            </Button>
           </Form.Item>
         </Form>
       </Modal>
     </div>
   );
 }
-
