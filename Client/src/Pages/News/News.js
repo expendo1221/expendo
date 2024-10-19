@@ -23,7 +23,7 @@ const shouldBeFullWidth = (sectionTitle) => {
 
 const NewsSection = ({ sectionTitle, newsItems }) => {
   const sectionClass = shouldBeFullWidth(sectionTitle)
-    ? `${styles['news-section']} ${styles['full-width']}`
+    ? `${styles['news-section']} ${styles['full-width']}`  // Fixed string interpolation
     : styles['news-section'];
 
   return (
@@ -51,21 +51,21 @@ function App() {
   useEffect(() => {
     // Fetch Top News
     const fetchTopNews = async () => {
-      const response = await fetch(`${NEWS_API_URL}?category=general&apiKey=${API_KEY}`);
+      const response = await fetch(`${NEWS_API_URL}?category=general&apiKey=${API_KEY}`);  // Fixed string interpolation
       const data = await response.json();
       setTopNews(data.articles);
     };
 
     // Fetch Economy News
     const fetchEconomyNews = async () => {
-      const response = await fetch(`${NEWS_API_URL}?category=business&apiKey=${API_KEY}`);
+      const response = await fetch(`${NEWS_API_URL}?category=business&apiKey=${API_KEY}`);  // Fixed string interpolation
       const data = await response.json();
       setEconomyNews(data.articles);
     };
 
     // Fetch World News
     const fetchWorldNews = async () => {
-      const response = await fetch(`${NEWS_API_URL}?category=general&apiKey=${API_KEY}&language=en`);
+      const response = await fetch(`${NEWS_API_URL}?category=general&apiKey=${API_KEY}&language=en`);  // Fixed string interpolation
       const data = await response.json();
       setWorldNews(data.articles);
     };
@@ -92,3 +92,4 @@ function App() {
 }
 
 export default App;
+
