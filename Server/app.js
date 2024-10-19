@@ -44,6 +44,16 @@ const expenseSchema = new mongoose.Schema({
 const Income = mongoose.model('Income', incomeSchema);
 const Expense = mongoose.model('Expense', expenseSchema);
 
+// Contact Us model
+const contactUsSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  message: { type: String, required: true },
+  date: { type: Date, default: Date.now }
+});
+
+const ContactUs = mongoose.model('ContactUs', contactUsSchema);
+
 // Routes for Authentication
 app.post('/api/signup', async (req, res) => {
   const { email, password } = req.body;
@@ -78,7 +88,6 @@ app.post('/api/signin', async (req, res) => {
 });
 
 // Routes for Income and Expenses
-
 // Get all incomes
 app.get('/api/incomes', async (req, res) => {
   try {
@@ -134,6 +143,30 @@ app.delete('/api/reset', async (req, res) => {
   }
 });
 
+// Routes for Contact Us functionality
+// POST Route to submit contact form
+app.post('/api/contact-us', async (req, res) => {
+  const { name, email, message } = req.body;
+  try {
+    const newMessage = new ContactUs({ name, email, message });
+    await newMessage.save();
+    res.json({ message: 'Message submitted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error submitting message' });
+  }
+});
+
+// GET Route to retrieve all contact messages (optional)
+app.get('/api/contact-us', async (req, res) => {
+  try {
+    const messages = await ContactUs.find();
+    res.json(messages);
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching messages' });
+  }
+});
+
+// Server configuration
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

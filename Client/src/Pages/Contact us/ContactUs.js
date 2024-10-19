@@ -113,6 +113,7 @@ const ContactUs = () => {
                 <Title level={4}>Our Location</Title>
                 <div className={styles.map}>
                   <iframe
+                    title="Google Maps Location of Somaiya Vidyavihar University"
                     src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7541.561956913423!2d72.896245!3d19.073365!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6279e6fa183%3A0x8b414750f755e236!2sSomaiya%20Vidyavihar%20University!5e0!3m2!1sen!2sus!4v1729315553902!5m2!1sen!2sus"
                     width="100%"
                     height="300"
@@ -132,4 +133,3 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
-
