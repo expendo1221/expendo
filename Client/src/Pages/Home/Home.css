@@ -149,7 +149,8 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  text-shadow: #333;
   text-align: center;
   z-index: 1;
   opacity: 0;
@@ -202,6 +203,17 @@ body {
   height: 500px;
   object-fit: cover;
   border-radius: 15px;
+}
+/* Apply this CSS to the text element */
+.text-outline {
+  color: white;  /* Inner text color */
+  text-shadow:
+    -1px -1px 0 black,  /* Top-left shadow */
+    1px -1px 0 black,   /* Top-right shadow */
+    -1px 1px 0 black,   /* Bottom-left shadow */
+    1px 1px 0 black;    /* Bottom-right shadow */
+  /* font-size: 24px;       */
+  font-weight: bold;    /* Optional: make the text bold */
 }
 
 @media screen and (max-width: 768px) {

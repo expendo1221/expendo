@@ -7,7 +7,7 @@ import Layout from './Components/Layout/Layout';
 import Home from './Pages/Home/Home';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import Portfolio from './Pages/Portfolio/Portfolio';
-import About from './Pages/About us/about';
+import About from './Pages/About Us/about';
 import SignIn from './Pages/Sign in/Signin';
 import SignUp from './Pages/Sign up/Signup';
 

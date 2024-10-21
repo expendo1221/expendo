@@ -9,10 +9,15 @@
 .header {
   text-align: center;
   margin-bottom: 40px;
-  background: linear-gradient(to right, #00aaff, #0099cc);
-  padding: 3rem;
+  background: linear-gradient(to right, #1375a5, #fdfdfd);
+  padding: 20px;
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  color: #002B5B;
+  font-size: 28px;
+  margin-left: 0%;
+  margin-right: 0%;
+  
 }
 
 .hero {
@@ -22,6 +27,7 @@
 .hero h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
+  color: #002B5B;
 }
 
 .hero p {
@@ -71,6 +77,7 @@
   overflow: hidden;
   transform: scale(1);
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  margin: 15px;
 }
 
 .news-card:hover {
@@ -104,7 +111,7 @@
 
 /* Title styling for each news item */
 .news-content h3 {
-  font-size: 1.8rem; /* Increased font size */
+  font-size: 24; /* Increased font size */
   font-weight: bold;
   color: #00aaff; /* Blue title */
   margin-bottom: 0.5rem;
@@ -112,7 +119,7 @@
 }
 
 .news-content p {
-  font-size: 1.1rem; /* Slightly larger font size */
+  font-size: 18px; /* Slightly larger font size */
   line-height: 1.6;
   color: #666;
   margin-bottom: 1rem;

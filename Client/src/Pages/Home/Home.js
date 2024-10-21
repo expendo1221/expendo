@@ -58,22 +58,26 @@ const HomePage = () => {
         <div className="features-container">
           <div className="feature">
             <div className="feature-content">
+            <div class='text-outline'>
               <h3>Real-time Insights</h3>
-              <p>Track your expenses, analyze spending patterns, and get insights that matter.</p>
+              <p>Track your expenses, analyze spending patterns, and get insights that matter.</p></div>
             </div>
             <img src={track1} alt="Real-time Insights" className="feature-image" />
           </div>
           <div className="feature">
             <div className="feature-content">
+             <div class='text-outline'>
               <h3>Seamless Integration</h3>
-              <p>Connect with your favorite financial tools and keep everything in sync effortlessly.</p>
+              <p>Connect with your favorite financial tools and keep everything in sync effortlessly.</p></div>
             </div>
             <img src={track2} alt="Seamless Integration" className="feature-image" />
           </div>
           <div className="feature">
             <div className="feature-content">
+              <div class='text-outline'>
               <h3>Advanced Security</h3>
               <p>Your data is protected with industry-leading security measures.</p>
+              </div>
             </div>
             <img src={track3} alt="Advanced Security" className="feature-image" />
           </div>
