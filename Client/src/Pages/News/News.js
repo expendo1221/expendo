@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from './News.module.css';  // Use CSS module import
+import styles from './News.module.css'; // Use CSS module import
 
 const API_KEY = '08d9d78574844dc4b614f9dd5b6c1063'; // Your API key
 const NEWS_API_URL = 'https://newsapi.org/v2/top-headlines';
@@ -16,20 +16,27 @@ const NewsCard = ({ title, content, image }) => {
   );
 };
 
-// Function to determine if a section should be full-width
-const shouldBeFullWidth = (sectionTitle) => {
-  return sectionTitle === 'Top News';
+// Function to determine if a section should use special container styling
+const shouldBeSpecialContainer = (sectionTitle) => {
+  return sectionTitle === 'Top News' || sectionTitle === 'World News';
 };
 
 const NewsSection = ({ sectionTitle, newsItems }) => {
-  const sectionClass = shouldBeFullWidth(sectionTitle)
-    ? `${styles['news-section']} ${styles['full-width']}`  // Fixed string interpolation
+  // Assign a class to specify a 4-column grid for top news, economy, and world news
+  const gridClass =
+    sectionTitle === 'Top News' || sectionTitle === 'Economy News' || sectionTitle === 'World News'
+      ? `${styles['news-grid']} ${styles['news-grid-four-columns']}`
+      : styles['news-grid'];
+
+  // Apply the special container styling for both Top News and World News
+  const sectionClass = shouldBeSpecialContainer(sectionTitle)
+    ? `${styles['news-section']} ${styles['special-news-container']}`
     : styles['news-section'];
 
   return (
     <div className={sectionClass}>
       <h2 className={styles['section-title']}>{sectionTitle}</h2>
-      <div className={styles['news-grid']}>
+      <div className={gridClass}>
         {newsItems.map((newsItem, index) => (
           <NewsCard
             key={index}
@@ -51,21 +58,21 @@ function App() {
   useEffect(() => {
     // Fetch Top News
     const fetchTopNews = async () => {
-      const response = await fetch(`${NEWS_API_URL}?category=general&apiKey=${API_KEY}`);  // Fixed string interpolation
+      const response = await fetch(`${NEWS_API_URL}?category=general&apiKey=${API_KEY}`);
       const data = await response.json();
       setTopNews(data.articles);
     };
 
     // Fetch Economy News
     const fetchEconomyNews = async () => {
-      const response = await fetch(`${NEWS_API_URL}?category=business&apiKey=${API_KEY}`);  // Fixed string interpolation
+      const response = await fetch(`${NEWS_API_URL}?category=business&apiKey=${API_KEY}`);
       const data = await response.json();
       setEconomyNews(data.articles);
     };
 
     // Fetch World News
     const fetchWorldNews = async () => {
-      const response = await fetch(`${NEWS_API_URL}?category=general&apiKey=${API_KEY}&language=en`);  // Fixed string interpolation
+      const response = await fetch(`${NEWS_API_URL}?category=general&apiKey=${API_KEY}&language=en`);
       const data = await response.json();
       setWorldNews(data.articles);
     };
@@ -92,4 +99,3 @@ function App() {
 }
 
 export default App;
-

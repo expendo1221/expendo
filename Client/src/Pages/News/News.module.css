@@ -13,11 +13,10 @@
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  color: #002B5B;
+  color: #002b5b;
   font-size: 28px;
   margin-left: 0%;
   margin-right: 0%;
-  
 }
 
 .hero {
@@ -27,7 +26,7 @@
 .hero h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
-  color: #002B5B;
+  color: #002b5b;
 }
 
 .hero p {
@@ -36,13 +35,14 @@
 
 /* General styles for the news section */
 .news-section {
-  max-width: 1200px; /* Contain the width */
+  max-width: 1200px;
   margin: 0 auto;
   padding: 3rem;
   background: #fff;
-  border-radius: 12px; /* Rounded corners for a modern look */
+  border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   animation: fadeIn 1s ease-in;
+  margin-bottom: 40px; /* Add spacing between sections */
 }
 
 /* Full width section with vibrant styling */
@@ -50,14 +50,14 @@
   max-width: 100%;
   width: 100%;
   padding: 2rem 0;
-  background: #f9f9f9; /* Contrast background for sections */
+  background: #f9f9f9;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .full-width:hover {
-  background: rgba(255, 255, 255, 0.9); /* Subtle hover effect */
+  background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -67,6 +67,20 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
   padding: 1rem 0;
+}
+
+/* Ensure 4 tiles per row for economy, world, and top news */
+.news-grid-four-columns {
+  grid-template-columns: repeat(4, 1fr); /* Fixed 4 columns */
+}
+
+/* Unique container styling for World News and Top News */
+.special-news-container {
+  background: #e3f2fd;
+  border: 2px solid #90caf9;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 2rem;
 }
 
 /* Styling for each news card */
@@ -81,21 +95,21 @@
 }
 
 .news-card:hover {
-  transform: scale(1.05); /* Slight scale-up on hover */
+  transform: scale(1.05);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Image styling for news card */
 .news-image {
   width: 100%;
-  height: 250px; /* Set fixed height for a uniform look */
+  height: 250px;
   object-fit: cover;
-  border-bottom: 4px solid #00aaff; /* Blue border to separate image from content */
+  border-bottom: 4px solid #00aaff;
   transition: transform 0.3s ease;
 }
 
 .news-image:hover {
-  transform: scale(1.05); /* Slight zoom-in on hover */
+  transform: scale(1.05);
 }
 
 /* News content section */
@@ -106,41 +120,40 @@
 }
 
 .news-card:hover .news-content {
-  color: #00aaff; /* Change text color to blue on hover */
+  color: #00aaff;
 }
 
-/* Title styling for each news item */
 .news-content h3 {
-  font-size: 24; /* Increased font size */
+  font-size: 24;
   font-weight: bold;
-  color: #00aaff; /* Blue title */
+  color: #00aaff;
   margin-bottom: 0.5rem;
   transition: color 0.3s ease;
 }
 
 .news-content p {
-  font-size: 18px; /* Slightly larger font size */
+  font-size: 18px;
   line-height: 1.6;
   color: #666;
   margin-bottom: 1rem;
 }
 
 .news-content p:hover {
-  color: #333; /* Subtle text color change on hover */
+  color: #333;
 }
 
 /* Section header styling */
 .section-title {
   font-size: 2.5rem;
   font-weight: bold;
-  color: #0099cc; /* Blue section title */
+  color: #0099cc;
   margin-bottom: 2rem;
   text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
   transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
 .section-title:hover {
-  color: #00aaff; /* Bold hover effect */
+  color: #00aaff;
   text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
 }
 
