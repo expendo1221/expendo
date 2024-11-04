@@ -1,9 +1,10 @@
- import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Cards.module.css';
 import { Card, Row, Button, Modal, Input, Form, Select, message } from "antd";
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
 import axios from 'axios';
+import moment from 'moment'; // To work with dates
 
 const { Option } = Select;
 
@@ -11,9 +12,13 @@ export default function Cards({ onAddIncome, onAddExpense }) {
   const [isIncomeModalVisible, setIncomeModalVisible] = useState(false);
   const [isExpenseModalVisible, setExpenseModalVisible] = useState(false);
   const [expenseCategory, setExpenseCategory] = useState('');
-
+  const [newCategory, setNewCategory] = useState(''); // New category state
   const [incomeEntries, setIncomeEntries] = useState([]);
   const [expenseEntries, setExpenseEntries] = useState([]);
+  const [categories, setCategories] = useState([
+    'Food', 'Travel', 'Entertainment', 'Utilities'
+  ]); // Initial categories
+  const [isMonthWise, setIsMonthWise] = useState(true); // Toggle between month-wise and year-wise
 
   // Fetch Income and Expense data from backend on component mount
   useEffect(() => {
@@ -55,9 +60,10 @@ export default function Cards({ onAddIncome, onAddExpense }) {
 
   const handleExpenseModalOk = async (values) => {
     const { amount, source, category } = values;
+    const selectedCategory = category === 'addNew' ? newCategory : category; // Use new category if "Add New Category" is selected
     const newExpense = {
       source,
-      category,
+      category: selectedCategory,
       amount: parseFloat(amount),
       date: new Date().toLocaleString(),
     };
@@ -68,6 +74,12 @@ export default function Cards({ onAddIncome, onAddExpense }) {
       onAddExpense(response.data);
       setExpenseModalVisible(false);
       message.success('Expense added successfully');
+
+      // If a new category is added, update the category list
+      if (category === 'addNew') {
+        setCategories([...categories, newCategory]);
+        setNewCategory(''); // Clear new category input after submission
+      }
     } catch (error) {
       message.error('Failed to add expense');
     }
@@ -88,7 +100,6 @@ export default function Cards({ onAddIncome, onAddExpense }) {
     { name: 'Expenses', value: totalExpenses },
   ];
 
-  const categories = [...new Set(expenseEntries.map(entry => entry.category))];
   const categoryData = categories.map(category => ({
     name: category,
     value: expenseEntries
@@ -104,6 +115,20 @@ export default function Cards({ onAddIncome, onAddExpense }) {
       expenses: expense ? expense.amount : 0,
     };
   });
+
+  const monthWiseData = expenseEntries.reduce((acc, entry) => {
+    const month = moment(entry.date).format('YYYY-MM'); // Format: YYYY-MM
+    if (!acc[month]) acc[month] = 0;
+    acc[month] += entry.amount;
+    return acc;
+  }, {});
+
+  const yearWiseData = expenseEntries.reduce((acc, entry) => {
+    const year = moment(entry.date).format('YYYY'); // Format: YYYY
+    if (!acc[year]) acc[year] = 0;
+    acc[year] += entry.amount;
+    return acc;
+  }, {});
 
   const COLORS = [
     '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
@@ -179,6 +204,23 @@ export default function Cards({ onAddIncome, onAddExpense }) {
             <Line type="monotone" dataKey="expenses" stroke="#ff6f61" />
           </LineChart>
         </Card>
+
+        {/* Add a new Card for Month-wise and Year-wise Expense Analysis */}
+        <Card className={styles['line-chart-card']} title={isMonthWise ? "Monthly Expense Analysis" : "Yearly Expense Analysis"}>
+          <Button onClick={() => setIsMonthWise(!isMonthWise)}>
+            Toggle to {isMonthWise ? "Yearly" : "Monthly"} View
+          </Button>
+          <LineChart width={500} height={300} data={Object.keys(isMonthWise ? monthWiseData : yearWiseData).map(key => ({
+            key,
+            expense: isMonthWise ? monthWiseData[key] : yearWiseData[key],
+          }))}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="key" />
+            <YAxis />
+            <Tooltip />
+            <Line type="monotone" dataKey="expense" stroke="#8884d8" activeDot={{ r: 8 }} />
+          </LineChart>
+        </Card>
       </Row>
 
       {/* Add Income Modal */}
@@ -189,17 +231,15 @@ export default function Cards({ onAddIncome, onAddExpense }) {
         footer={null}
       >
         <Form onFinish={handleIncomeModalOk}>
-          <Form.Item label="Amount" name="amount" rules={[{ required: true }]}>
-            <Input type="number" />
-          </Form.Item>
           <Form.Item label="Source" name="source" rules={[{ required: true }]}>
-            <Input />
+            <Input placeholder="Source of Income" />
           </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Add Income
-            </Button>
+          <Form.Item label="Amount" name="amount" rules={[{ required: true }]}>
+            <Input type="number" placeholder="Amount in ₹" />
           </Form.Item>
+          <Button type="primary" htmlType="submit">
+            Add Income
+          </Button>
         </Form>
       </Modal>
 
@@ -211,27 +251,31 @@ export default function Cards({ onAddIncome, onAddExpense }) {
         footer={null}
       >
         <Form onFinish={handleExpenseModalOk}>
-          <Form.Item label="Amount" name="amount" rules={[{ required: true }]}>
-            <Input type="number" />
-          </Form.Item>
           <Form.Item label="Source" name="source" rules={[{ required: true }]}>
-            <Input />
+            <Input placeholder="Source of Expense" />
           </Form.Item>
           <Form.Item label="Category" name="category" rules={[{ required: true }]}>
-            <Select defaultValue={expenseCategory} onChange={setExpenseCategory}>
-              <Option value="Food">Food</Option>
-              <Option value="Entertainment">Entertainment</Option>
-              <Option value="Transport">Transport</Option>
-              <Option value="Other">Other</Option>
+            <Select placeholder="Select Category" onChange={setExpenseCategory}>
+              {categories.map(category => (
+                <Option key={category} value={category}>{category}</Option>
+              ))}
+              <Option value="addNew">Add New Category</Option>
             </Select>
           </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Add Expense
-            </Button>
+          {expenseCategory === 'addNew' && (
+            <Form.Item label="New Category" name="newCategory" rules={[{ required: true }]}>
+              <Input placeholder="Enter New Category" onChange={e => setNewCategory(e.target.value)} />
+            </Form.Item>
+          )}
+          <Form.Item label="Amount" name="amount" rules={[{ required: true }]}>
+            <Input type="number" placeholder="Amount in ₹" />
           </Form.Item>
+          <Button type="primary" htmlType="submit">
+            Add Expense
+          </Button>
         </Form>
       </Modal>
     </div>
   );
 }
+

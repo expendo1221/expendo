@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
-import { FaUserCircle, FaChartLine, FaWallet, FaEnvelope } from 'react-icons/fa';  // Changed icon here
+import { FaUserCircle, FaChartLine, FaWallet, FaEnvelope, FaNewspaper } from 'react-icons/fa';  // Add FaNewspaper
 import logo from '../../Assets/logo.png';
 
 const Navbar = () => {
@@ -54,7 +54,7 @@ const Navbar = () => {
         </li>
         <li>
           <Link to="/news">
-            <FaWallet className="navbar-icon" /> News
+            <FaNewspaper className="navbar-icon" /> News  {/* Updated the icon to FaNewspaper */}
           </Link>
         </li>
         <li>
